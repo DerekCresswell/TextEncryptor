@@ -3,12 +3,10 @@
   *  All code written by : Derek Cresswell
   */
   
-  import java.util.*;
-  
   void setup(){
-    encrypt("Kk Aa", "abc");
-    arrToMatrix(stringToIntArr("Kk Aa"), 3, 2);
-    arrToMatrix(stringToIntArr("Kk Aa"), 2, 3);
+    //encrypt("Kk Aa", "abc");
+    //arrToMatrix(stringToIntArr("Kk Aa"), 3, 2);
+    //arrToMatrix(stringToIntArr("Kk Aa"), 2, 3);
     
     int[][] test = new int[][]{
       {2, 4},
@@ -100,15 +98,12 @@
   int [][] multiplyMatrices(int[][] arr1, int[][] arr2){
     //Multiplies two given matrices
     //All rows must have the same length
-    //[a][b] [c][d]; b == c; New size a x d
-    //toRet[][] += arr[i][j] * arr2[j][i];
     
     int[][] toRet = new int[arr1.length][arr2[0].length];
-    int i = 0, j = 0, k = 0;
-      
-    for(; i < arr1.length; i++){
-      for(; j < arr2[0].length; j++){
-        for(; k < arr1[0].length; k++){
+
+    for(int i = 0; i < arr1.length; i++){
+      for(int j = 0; j < arr2[0].length; j++){
+        for(int k = 02; k < arr1[0].length; k++){
           toRet[i][j] += arr1[i][k] * arr2[k][j];
         }
       }
@@ -118,6 +113,7 @@
   }
   /*
   * Invalid matrix resolution
+  * [a][b] [c][d] b == c
   * Should need to be doubles for inverse matrices
   */
   
