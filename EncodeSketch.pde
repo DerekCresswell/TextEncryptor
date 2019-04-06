@@ -1,3 +1,7 @@
+  /*
+  *  Text Encrypter / Decrytper
+  *  All code written by : Derek Cresswell
+  */
   
   import java.util.*;
   
@@ -5,14 +9,32 @@
     encrypt("Kk Aa", "abc");
     arrToMatrix(stringToIntArr("Kk Aa"), 3, 2);
     arrToMatrix(stringToIntArr("Kk Aa"), 2, 3);
+    
+    int[][] test = new int[][]{
+      {2, 4},
+      {5, 3},
+      {3, 5}
+    };
+    int[][] test2 = new int[][]{
+      {3, 4, 2},
+      {5, 1, 2}
+    };
+
+    int[][] test3 = multiplyMatrices(test, test2);
+    
+    for(int i = 0; i < test3.length; i++){
+      for(int j = 0; j < test3[i].length; j++){
+        System.out.print(test3[i][j] + ", ");
+      }
+      System.out.println();
+    }
+    
   }
   
   String encrypt(String text, String pass){
       String toRet = "";
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
-    
-      
     
       return toRet;
   }
@@ -21,8 +43,11 @@
   */
   
   String decrypt(String text, String pass){
-  
-      return "";
+      String toRet = "";
+      int[] textArr = stringToIntArr(text);
+      int[] passArr = stringToIntArr(pass);
+      
+      return toRet;
   }
   /*
   *
@@ -41,6 +66,9 @@
     
       return toRet;
   }
+  /*
+  *Shoud need to be doubles for inverse matrices
+  */
   
   int[][] arrToMatrix(int[] arr, int row, int col){
     //Converts int array to 2D array of row rows and col columns 
@@ -65,18 +93,24 @@
     
     return toRet;
   }
+  /*
+  *Should need to be doubles for inverse matrices
+  */
   
-  int [][] multiplyMatrices(int[][] arr, int[][] arr2){
+  int [][] multiplyMatrices(int[][] arr1, int[][] arr2){
     //Multiplies two given matrices
     //All rows must have the same length
     //[a][b] [c][d]; b == c; New size a x d
+    //toRet[][] += arr[i][j] * arr2[j][i];
     
-    int[][] toRet = new int[arr.length][arr2[0].length];
-    
-    if(toRet.length == toRet[0].length){
-      //[i][j] x [k][l]
-      for(int i = 0; i < toRet.length; i++){
-        
+    int[][] toRet = new int[arr1.length][arr2[0].length];
+    int i = 0, j = 0, k = 0;
+      
+    for(; i < arr1.length; i++){
+      for(; j < arr2[0].length; j++){
+        for(; k < arr1[0].length; k++){
+          toRet[i][j] += arr1[i][k] * arr2[k][j];
+        }
       }
     }
     
@@ -84,6 +118,7 @@
   }
   /*
   * Invalid matrix resolution
+  * Should need to be doubles for inverse matrices
   */
   
   
