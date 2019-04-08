@@ -31,24 +31,13 @@
       String toRet = "";
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
+      
       int row = 0;
       int col = 0;
+      int[] size = findDimensions(textArr.length, passArr.length);
       
-      if(textArr.length >= passArr.length){
-        if(textArr.length % 2 == 0){
-          row = (textArr.length + 1) / 2;
-          col = (textArr.length + 1) / 2;
-        } else {
-          row = textArr.length / 2;
-          col = textArr.length / 2;
-        }
-      } else {
-        
-      }
-      //fix above section
-      
-      int[][] textMat = arrToMatrix(textArr, row, col);
-      int[][] passMat = arrToMatrix(passArr, col, row);
+      int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
+      int[][] passMat = arrToMatrix(passArr, size[1], size[2]);
       int[][] result = multiplyMatrices(textMat, passMat);
       
       return toRet;
@@ -96,10 +85,11 @@
     for(int i = 0; i < row; i++){   
       for(int j = 0; j < col; j++){
         
-         if(count >= arr.length){
-           toRet[i][j] = 0;
-         } else {
+         if(count < arr.length){
+           //ensure working ^
            toRet[i][j] = arr[count];
+         } else {
+           toRet[i][j] = 0;
          }
          
          count++;
@@ -133,7 +123,16 @@
   * Should need to be doubles for inverse matrices
   */
   
-  
+  int[] findDimensions(int num1, int num2){
+    //Returns an array with the values for the matrices size
+    //Indices : mat1[0][1], mat2[1][2]
+    
+    int[] toRet = new int[3];
+    
+    
+    
+    return toRet;
+  }
   
   
   
