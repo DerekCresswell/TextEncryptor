@@ -3,12 +3,8 @@
   *  All code written by : Derek Cresswell
   */
   
-  import java.util.*;
-  
   void setup(){
     encrypt("Kk Aa", "abc");
-    arrToMatrix(stringToIntArr("Kk Aa"), 3, 2);
-    arrToMatrix(stringToIntArr("Kk Aa"), 2, 3);
     
     int[][] test = new int[][]{
       {2, 4},
@@ -20,14 +16,14 @@
       {5, 1, 2}
     };
 
-    int[][] test3 = multiplyMatrices(test, test2);
+    //int[][] test3 = multiplyMatrices(test, test2);
     
-    for(int i = 0; i < test3.length; i++){
-      for(int j = 0; j < test3[i].length; j++){
-        System.out.print(test3[i][j] + ", ");
-      }
-      System.out.println();
-    }
+    //for(int i = 0; i < test3.length; i++){
+    //  for(int j = 0; j < test3[i].length; j++){
+    //    System.out.print(test3[i][j] + ", ");
+    //  }
+    //  System.out.println();
+    //}
     
   }
   
@@ -35,7 +31,15 @@
       String toRet = "";
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
-    
+      
+      int row = 0;
+      int col = 0;
+      int[] size = findDimensions(textArr.length, passArr.length);
+      
+      int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
+      int[][] passMat = arrToMatrix(passArr, size[1], size[2]);
+      int[][] result = multiplyMatrices(textMat, passMat);
+      
       return toRet;
   }
   /*
@@ -81,10 +85,11 @@
     for(int i = 0; i < row; i++){   
       for(int j = 0; j < col; j++){
         
-         if(count >= arr.length){
-           toRet[i][j] = 0;
-         } else {
+         if(count < arr.length){
+           //ensure working ^
            toRet[i][j] = arr[count];
+         } else {
+           toRet[i][j] = 0;
          }
          
          count++;
@@ -100,15 +105,12 @@
   int [][] multiplyMatrices(int[][] arr1, int[][] arr2){
     //Multiplies two given matrices
     //All rows must have the same length
-    //[a][b] [c][d]; b == c; New size a x d
-    //toRet[][] += arr[i][j] * arr2[j][i];
     
     int[][] toRet = new int[arr1.length][arr2[0].length];
-    int i = 0, j = 0, k = 0;
-      
-    for(; i < arr1.length; i++){
-      for(; j < arr2[0].length; j++){
-        for(; k < arr1[0].length; k++){
+
+    for(int i = 0; i < arr1.length; i++){
+      for(int j = 0; j < arr2[0].length; j++){
+        for(int k = 0; k < arr1[0].length; k++){
           toRet[i][j] += arr1[i][k] * arr2[k][j];
         }
       }
@@ -121,7 +123,16 @@
   * Should need to be doubles for inverse matrices
   */
   
-  
+  int[] findDimensions(int num1, int num2){
+    //Returns an array with the values for the matrices size
+    //Indices : mat1[0][1], mat2[1][2]
+    
+    int[] toRet = new int[3];
+    
+    
+    
+    return toRet;
+  }
   
   
   
