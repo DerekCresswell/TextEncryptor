@@ -32,8 +32,6 @@
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
       
-      int row = 0;
-      int col = 0;
       int[] size = findDimensions(textArr.length, passArr.length);
       
       int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
