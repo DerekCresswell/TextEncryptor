@@ -4,9 +4,7 @@
   */
   
   void setup(){
-    //encrypt("Kk Aa", "abc");
-    //arrToMatrix(stringToIntArr("Kk Aa"), 3, 2);
-    //arrToMatrix(stringToIntArr("Kk Aa"), 2, 3);
+    encrypt("Kk Aa", "abc");
     
     int[][] test = new int[][]{
       {2, 4},
@@ -18,14 +16,14 @@
       {5, 1, 2}
     };
 
-    int[][] test3 = multiplyMatrices(test, test2);
+    //int[][] test3 = multiplyMatrices(test, test2);
     
-    for(int i = 0; i < test3.length; i++){
-      for(int j = 0; j < test3[i].length; j++){
-        System.out.print(test3[i][j] + ", ");
-      }
-      System.out.println();
-    }
+    //for(int i = 0; i < test3.length; i++){
+    //  for(int j = 0; j < test3[i].length; j++){
+    //    System.out.print(test3[i][j] + ", ");
+    //  }
+    //  System.out.println();
+    //}
     
   }
   
@@ -33,7 +31,26 @@
       String toRet = "";
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
-    
+      int row = 0;
+      int col = 0;
+      
+      if(textArr.length >= passArr.length){
+        if(textArr.length % 2 == 0){
+          row = (textArr.length + 1) / 2;
+          col = (textArr.length + 1) / 2;
+        } else {
+          row = textArr.length / 2;
+          col = textArr.length / 2;
+        }
+      } else {
+        
+      }
+      //fix above section
+      
+      int[][] textMat = arrToMatrix(textArr, row, col);
+      int[][] passMat = arrToMatrix(passArr, col, row);
+      int[][] result = multiplyMatrices(textMat, passMat);
+      
       return toRet;
   }
   /*
