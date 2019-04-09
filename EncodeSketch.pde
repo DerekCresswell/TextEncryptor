@@ -1,11 +1,11 @@
-   /*
+    /*
   *  Text Encrypter / Decrytper
   *  All code written by : Derek Cresswell
   */
   
   void setup(){
-    //encrypt("Kk Aa", "abc");
-    
+    System.out.println(encrypt("Kk Aa", "abc"));
+
     int[][] test = new int[][]{
       {2, 4},
       {5, 3},
@@ -37,6 +37,9 @@
       int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
       int[][] passMat = arrToMatrix(passArr, size[1], size[2]);
       int[][] result = multiplyMatrices(textMat, passMat);
+      
+      textArr = matToIntArr(result);
+      toRet = arrToString(textArr);
       
       return toRet;
   }
@@ -164,4 +167,29 @@
     return toRet;
   }
   
+  int[] matToIntArr(int[][] mat){
+    int[] toRet = new int[mat.length * mat[0].length];
+    int count = 0;
+    
+    for(int i = 0; i < mat.length; i++){
+      for(int j = 0; j < mat[i].length; j++){
+        toRet[count] = mat[i][j];
+      }
+    }
+    
+    return toRet;
+  }
   
+  String arrToString(int[] arr){
+    String toRet = "";
+    
+    for(int i = 0; i < arr.length; i++){
+      toRet = toRet + Character.toString((char) i);
+    }
+    
+    return toRet;
+  }
+  
+  
+  
+ 
