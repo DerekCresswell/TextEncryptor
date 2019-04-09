@@ -1,4 +1,4 @@
-    /*
+     /*
   *  Text Encrypter / Decrytper
   *  All code written by : Derek Cresswell
   */
@@ -35,8 +35,8 @@
       int[] size = findDimensions(textArr.length, passArr.length);
       
       int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
-      int[][] passMat = arrToMatrix(passArr, size[1], size[2]);
-      int[][] result = multiplyMatrices(textMat, passMat);
+      int[][] passMat = arrToMatrix(passArr, size[0], size[1]);
+      int[][] result = subtractMatrices(textMat, passMat);
       
       textArr = matToIntArr(result);
       toRet = arrToString(textArr);
@@ -126,21 +126,20 @@
   
   int[] findDimensions(int num1, int num2){
     //Returns an array with the values for the matrices size
-    //Indices : mat1[0][1], mat2[1][2]
     
-    int[] toRet = new int[3];
-    int[] result;
+    int[] toRet = new int[2];
     
     if(num1 % 2 != 0)
       num1++;
       
     if(num2 % 2 != 0)
       num2++;
-      
-    result = findDivisors(num1);
-    toRet[0] = result[1];
-    toRet[1] = result[0];
-    toRet[2] = num2 / result[0];
+   
+   if(num1 > num2){
+     toRet = findDivisors(num1);
+   } else {
+     toRet = findDivisors(num2);
+   }
     
     return toRet;
   }
@@ -190,6 +189,11 @@
     return toRet;
   }
   
-  
+  int[][] subtractMatrices(int[][] mat1, int[][] mat2){
+    int[][] toRet = new int[mat1.length][mat2.length];
+    
+    
+    return toRet;
+  }
   
  
