@@ -1,10 +1,10 @@
-  /*
+   /*
   *  Text Encrypter / Decrytper
   *  All code written by : Derek Cresswell
   */
   
   void setup(){
-    encrypt("Kk Aa", "abc");
+    //encrypt("Kk Aa", "abc");
     
     int[][] test = new int[][]{
       {2, 4},
@@ -126,12 +126,42 @@
     //Indices : mat1[0][1], mat2[1][2]
     
     int[] toRet = new int[3];
+    int[] result;
     
-    
+    if(num1 % 2 != 0)
+      num1++;
+      
+    if(num2 % 2 != 0)
+      num2++;
+      
+    result = findDivisors(num1);
+    toRet[0] = result[1];
+    toRet[1] = result[0];
+    toRet[2] = num2 / result[0];
     
     return toRet;
   }
   
-  
+  int[] findDivisors(int n){
+    //toRet[0] is the lesser number
+    
+    int[] toRet = new int[2];
+    
+    for(int i = 1; i <= Math.sqrt(n); i++){
+      if(n % i == 0){
+        
+        if(n / i == i){
+          toRet[0] = i;
+          toRet[1] = i;
+        } else {
+          toRet[0] = i;
+          toRet[1] = n / i;
+        }
+        
+      }
+    }
+    
+    return toRet;
+  }
   
   
