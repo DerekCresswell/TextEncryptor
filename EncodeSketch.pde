@@ -1,22 +1,23 @@
-     /*
+  /*
   *  Text Encrypter / Decrytper
   *  All code written by : Derek Cresswell
   */
   
   void setup(){
-    System.out.println(encrypt("Kk Aa", "abc"));
+    //System.out.println(encrypt("Kk Aa", "abc"));
 
-    int[][] test = new int[][]{
-      {2, 4},
-      {5, 3},
-      {3, 5}
-    };
-    int[][] test2 = new int[][]{
-      {3, 4, 2},
-      {5, 1, 2}
-    };
+    //int[][] test = new int[][]{
+    //  {2, 4},
+    //  {5, 3},
+    //  {3, 5}
+    //};
+    //int[][] test2 = new int[][]{
+    //  {3, 4},
+    //  {5, 1},
+    //  {2, 1}
+    //};
 
-    //int[][] test3 = multiplyMatrices(test, test2);
+    //int[][] test3 = subtractMatrices(test, test2);
     
     //for(int i = 0; i < test3.length; i++){
     //  for(int j = 0; j < test3[i].length; j++){
@@ -126,6 +127,7 @@
   
   int[] findDimensions(int num1, int num2){
     //Returns an array with the values for the matrices size
+    //Setup for add/sub
     
     int[] toRet = new int[2];
     
@@ -189,11 +191,40 @@
     return toRet;
   }
   
-  int[][] subtractMatrices(int[][] mat1, int[][] mat2){
-    int[][] toRet = new int[mat1.length][mat2.length];
+  int[][] subtractMatrices(int[][] mat1, int[][] mat2){  
+    for(int i = 0; i < mat1.length; i++){
+      for(int j = 0; j < mat1[i].length; j++){
+        mat1[i][j] -= mat2[i][j];
+      }
+    }
     
+    return mat1;
+  }
+  
+  int[][] addMatrices(int[][] mat1, int[][] mat2){ 
+    for(int i = 0; i < mat1.length; i++){
+      for(int j = 0; j < mat1[i].length; j++){
+        mat1[i][j] += mat2[i][j];
+      }
+    }
     
-    return toRet;
+    return mat1;
+  }
+  
+  int[][] cycleMatrixInc(int[][] mat, int low, int high){
+    //32 - 126
+    
+     for(int i = 0; i < mat.length; i++){
+       for(int j = 0; j < mat[i].length; j++){
+         if(mat[i][j] < low){
+           mat[i][j] = high - (low - mat[i][j])
+           //Not working
+         } else if(mat[i][j] > high){
+         
+         }
+       }
+     }
+     return mat;
   }
   
  
