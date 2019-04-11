@@ -1,4 +1,4 @@
- /*
+  /*
   *  Text Encrypter / Decrytper
   *  All code written by : Derek Cresswell
   */
@@ -9,12 +9,12 @@
     int[][] test = new int[][]{
       {34, 54},
       {57, 110},
-      {3, 5}
+      {33, 75}
     };
     int[][] test2 = new int[][]{
-      {3, 4},
-      {5, 1},
-      {2, 1}
+      {78, 46},
+      {65, 100},
+      {89, 46}
     };
 
     int[][] test3 = subtractMatrices(test, test2);
@@ -50,7 +50,6 @@
   }
   
   String encrypt(String text, String pass){
-      String toRet = "";
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
       
@@ -59,11 +58,13 @@
       int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
       int[][] passMat = arrToMatrix(passArr, size[0], size[1]);
       int[][] result = subtractMatrices(textMat, passMat);
+      textMat = cycleMatrixInc(textMat, 32, 126);
       
       textArr = matToIntArr(result);
-      toRet = arrToString(textArr);
+      text = arrToString(textArr);
       
-      return toRet;
+      return text;
+      //Ensure all is working
   }
   /*
   *Empty string catches;
