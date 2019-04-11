@@ -1,4 +1,4 @@
-  /*
+ /*
   *  Text Encrypter / Decrytper
   *  All code written by : Derek Cresswell
   */
@@ -6,25 +6,46 @@
   void setup(){
     //System.out.println(encrypt("Kk Aa", "abc"));
 
-    //int[][] test = new int[][]{
-    //  {2, 4},
-    //  {5, 3},
-    //  {3, 5}
-    //};
-    //int[][] test2 = new int[][]{
-    //  {3, 4},
-    //  {5, 1},
-    //  {2, 1}
-    //};
+    int[][] test = new int[][]{
+      {34, 54},
+      {57, 110},
+      {3, 5}
+    };
+    int[][] test2 = new int[][]{
+      {3, 4},
+      {5, 1},
+      {2, 1}
+    };
 
-    //int[][] test3 = subtractMatrices(test, test2);
+    int[][] test3 = subtractMatrices(test, test2);
     
-    //for(int i = 0; i < test3.length; i++){
-    //  for(int j = 0; j < test3[i].length; j++){
-    //    System.out.print(test3[i][j] + ", ");
-    //  }
-    //  System.out.println();
-    //}
+    for(int i = 0; i < test3.length; i++){
+      for(int j = 0; j < test3[i].length; j++){
+        System.out.print(test3[i][j] + ", ");
+      }
+      System.out.println();
+    }
+    System.out.println();
+    
+    test3 = cycleMatrixInc(test3, 32, 126);
+    
+    for(int i = 0; i < test3.length; i++){
+      for(int j = 0; j < test3[i].length; j++){
+        System.out.print(test3[i][j] + ", ");
+      }
+      System.out.println();
+    }
+    System.out.println();
+    
+    test3 = addMatrices(test3, test2);
+    test3 = cycleMatrixInc(test3, 32, 126);
+    
+    for(int i = 0; i < test3.length; i++){
+      for(int j = 0; j < test3[i].length; j++){
+        System.out.print(test3[i][j] + ", ");
+      }
+      System.out.println();
+    }
     
   }
   
@@ -212,15 +233,14 @@
   }
   
   int[][] cycleMatrixInc(int[][] mat, int low, int high){
-    //32 - 126
+    //32 - 126 for ASCII
     
      for(int i = 0; i < mat.length; i++){
        for(int j = 0; j < mat[i].length; j++){
          if(mat[i][j] < low){
-           mat[i][j] = high - (low - mat[i][j])
-           //Not working
+           mat[i][j] = high + 1 - (low - mat[i][j]);
          } else if(mat[i][j] > high){
-         
+           mat[i][j] = low - 1 + (mat[i][j] - high);
          }
        }
      }
