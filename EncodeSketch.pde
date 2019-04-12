@@ -19,35 +19,33 @@
 
     int[][] test3 = subtractMatrices(test, test2);
     
-    for(int i = 0; i < test3.length; i++){
-      for(int j = 0; j < test3[i].length; j++){
-        System.out.print(test3[i][j] + ", ");
-      }
-      System.out.println();
-    }
+    printMat(test3);
     System.out.println();
     
     test3 = cycleMatrixInc(test3, 32, 126);
     
-    for(int i = 0; i < test3.length; i++){
-      for(int j = 0; j < test3[i].length; j++){
-        System.out.print(test3[i][j] + ", ");
-      }
-      System.out.println();
-    }
+    printMat(test3);
     System.out.println();
     
     test3 = addMatrices(test3, test2);
     test3 = cycleMatrixInc(test3, 32, 126);
     
-    for(int i = 0; i < test3.length; i++){
-      for(int j = 0; j < test3[i].length; j++){
-        System.out.print(test3[i][j] + ", ");
+    printMat(test3);
+    
+  }
+  
+  
+  //Temp func
+  void printMat(int[][] mat){
+    for(int i = 0; i < mat.length; i++){
+      for(int j = 0; j < mat[i].length; j++){
+        System.out.print(mat[i][j] + ", ");
       }
       System.out.println();
     }
-    
   }
+  
+  
   
   String encrypt(String text, String pass){
       int[] textArr = stringToIntArr(text);
