@@ -1,37 +1,46 @@
-  /*
+/*
   *  Text Encrypter / Decrytper
   *  All code written by : Derek Cresswell
   */
   
   void setup(){
-    //System.out.println(encrypt("Kk Aa", "abc"));
+    System.out.println(encrypt("Kk Aa", "abtde"));
+    System.out.println(126 + 1 - (32 - -84));
 
-    int[][] test = new int[][]{
-      {34, 54},
-      {57, 110},
-      {33, 75}
-    };
-    int[][] test2 = new int[][]{
-      {78, 46},
-      {65, 100},
-      {89, 46}
-    };
+    //int[][] test = new int[][]{
+    //  {34, 54},
+    //  {57, 110},
+    //  {33, 75}
+    //};
+    //int[][] test2 = new int[][]{
+    //  {78, 46},
+    //  {65, 100},
+    //  {89, 46}
+    //};
 
-    int[][] test3 = subtractMatrices(test, test2);
+    //int[][] test3 = subtractMatrices(test, test2);
     
-    printMat(test3);
-    System.out.println();
+    //printMat(test3);
+    //System.out.println();
     
-    test3 = cycleMatrixInc(test3, 32, 126);
+    //test3 = cycleMatrixInc(test3, 32, 126);
     
-    printMat(test3);
-    System.out.println();
+    //printMat(test3);
+    //System.out.println();
     
-    test3 = addMatrices(test3, test2);
-    test3 = cycleMatrixInc(test3, 32, 126);
+    //test3 = addMatrices(test3, test2);
+    //printMat(test3);
+    //System.out.println();
     
-    printMat(test3);
-    
+    //test3 = cycleMatrixInc(test3, 32, 126);
+    //printMat(test3);
+    //System.out.println();
+
+    //int[] test4 = matToIntArr(test3);
+    //for(int i = 0; i < test4.length; i++){
+    //  System.out.print(test4[i] + ", ");
+    //}
+    //System.out.println(arrToString(test4));
   }
   
   
@@ -56,9 +65,13 @@
       int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
       int[][] passMat = arrToMatrix(passArr, size[0], size[1]);
       int[][] result = subtractMatrices(textMat, passMat);
+      printMat(result);
       textMat = cycleMatrixInc(textMat, 32, 126);
       
       textArr = matToIntArr(result);
+      for(int i = 0; i < textArr.length; i++){
+        System.out.print(textArr[i] + ", ");
+      }
       text = arrToString(textArr);
       
       return text;
@@ -195,6 +208,7 @@
     for(int i = 0; i < mat.length; i++){
       for(int j = 0; j < mat[i].length; j++){
         toRet[count] = mat[i][j];
+        count++;
       }
     }
     
@@ -205,7 +219,7 @@
     String toRet = "";
     
     for(int i = 0; i < arr.length; i++){
-      toRet = toRet + Character.toString((char) i);
+      toRet = toRet + Character.toString((char) arr[i]);
     }
     
     return toRet;
