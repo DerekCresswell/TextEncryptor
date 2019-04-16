@@ -4,7 +4,7 @@
   */
   
   void setup(){
-    String test = encrypt("My_Name_Is_Derek", "THISISMYPASSWORD");
+    String test = encrypt("My_Name_Is_Derek!", "THISISMYPASSWORD");
     System.out.println(test);
     System.out.println(decrypt(test, "THISISMYPASSWORD"));
   }
@@ -27,7 +27,7 @@
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
       
-      int[] size = findDimensions(textArr.length, passArr.length);
+      int[] size = findDimensionsAS(textArr.length, passArr.length);
       
       int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
       int[][] passMat = arrToMatrix(passArr, size[0], size[1]);
@@ -45,10 +45,11 @@
   */
   
   String decrypt(String text, String pass){
+      //Size is set up  for Add/Sub
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
       
-      int size[] = findDimensions(textArr.length, passArr.length);
+      int size[] = findDimensionsAS(textArr.length, passArr.length);
       
       int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
       int[][] passMat = arrToMatrix(passArr, size[0], size[1]);
@@ -56,8 +57,11 @@
       
       textMat = cycleMatrixInc(textMat, 32, 126);
       textArr = matToIntArr(textMat);
-      text = arrToString(textArr);
-      
+      if(text.length() - 1 % 2 == 0){
+        text = arrToString(textArr);
+      } else {
+        text = arrToString(textArr).substring(0, text.length() - 1);
+      }
       return text;
   }
   /*
@@ -130,9 +134,9 @@
   * Should need to be doubles for inverse matrices
   */
   
-  int[] findDimensions(int num1, int num2){
+  int[] findDimensionsAS(int num1, int num2){
     //Returns an array with the values for the matrices size
-    //Setup for add/sub
+    //Indices ; mat1[0][1], mat2[0][1]
     
     int[] toRet = new int[2];
     
@@ -150,7 +154,28 @@
     
     return toRet;
   }
-  //Add back the findDimesions for mult/div
+  
+    int[] findDimensionsMD(int num1, int num2){
+    //Returns an array with the values for the matrices size
+    //Indices : mat1[0][1], mat2[1][2]
+
+    int[] toRet = new int[3];
+    int[] result;
+
+
+    if(num1 % 2 != 0)
+      num1++;
+
+    if(num2 % 2 != 0)
+      num2++;
+
+    result = findDivisors(num1);
+    toRet[0] = result[1];
+    toRet[1] = result[0];
+    toRet[2] = num2 / result[0];
+
+    return toRet;
+  }
   
   int[] findDivisors(int n){
     //toRet[0] is the lesser number
