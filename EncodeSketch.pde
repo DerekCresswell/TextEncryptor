@@ -1,46 +1,12 @@
-/*
+  /*
   *  Text Encrypter / Decrytper
   *  All code written by : Derek Cresswell
   */
   
   void setup(){
-    System.out.println(encrypt("Kk Aa", "abtde"));
-    System.out.println(126 + 1 - (32 - -84));
-
-    //int[][] test = new int[][]{
-    //  {34, 54},
-    //  {57, 110},
-    //  {33, 75}
-    //};
-    //int[][] test2 = new int[][]{
-    //  {78, 46},
-    //  {65, 100},
-    //  {89, 46}
-    //};
-
-    //int[][] test3 = subtractMatrices(test, test2);
-    
-    //printMat(test3);
-    //System.out.println();
-    
-    //test3 = cycleMatrixInc(test3, 32, 126);
-    
-    //printMat(test3);
-    //System.out.println();
-    
-    //test3 = addMatrices(test3, test2);
-    //printMat(test3);
-    //System.out.println();
-    
-    //test3 = cycleMatrixInc(test3, 32, 126);
-    //printMat(test3);
-    //System.out.println();
-
-    //int[] test4 = matToIntArr(test3);
-    //for(int i = 0; i < test4.length; i++){
-    //  System.out.print(test4[i] + ", ");
-    //}
-    //System.out.println(arrToString(test4));
+    String test = encrypt("My_Name_Is_Derek", "THISISMYPASSWORD");
+    System.out.println(test);
+    System.out.println(decrypt(test, "THISISMYPASSWORD"));
   }
   
   
@@ -57,6 +23,7 @@
   
   
   String encrypt(String text, String pass){
+      //size is set up for Add/Sub
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
       
@@ -64,32 +31,37 @@
       
       int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
       int[][] passMat = arrToMatrix(passArr, size[0], size[1]);
-      int[][] result = subtractMatrices(textMat, passMat);
-      printMat(result);
-      textMat = cycleMatrixInc(textMat, 32, 126);
-      
-      textArr = matToIntArr(result);
-      for(int i = 0; i < textArr.length; i++){
-        System.out.print(textArr[i] + ", ");
-      }
+      textMat = subtractMatrices(textMat, passMat);
+
+      textMat = cycleMatrixInc(textMat, 32, 126); 
+      textArr = matToIntArr(textMat);
       text = arrToString(textArr);
       
       return text;
-      //Ensure all is working
   }
   /*
   *Empty string catches;
+  *Spaces do not work, use underscore for temp
   */
   
   String decrypt(String text, String pass){
-      String toRet = "";
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
       
-      return toRet;
+      int size[] = findDimensions(textArr.length, passArr.length);
+      
+      int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
+      int[][] passMat = arrToMatrix(passArr, size[0], size[1]);
+      textMat = addMatrices(textMat, passMat);
+      
+      textMat = cycleMatrixInc(textMat, 32, 126);
+      textArr = matToIntArr(textMat);
+      text = arrToString(textArr);
+      
+      return text;
   }
   /*
-  *
+  * Chop extra "_"
   */
   //End Main Func
   
@@ -178,6 +150,7 @@
     
     return toRet;
   }
+  //Add back the findDimesions for mult/div
   
   int[] findDivisors(int n){
     //toRet[0] is the lesser number
