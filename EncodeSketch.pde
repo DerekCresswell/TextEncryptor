@@ -4,9 +4,11 @@
   */
   
   void setup(){
-    String test = encrypt("My_Name_Is_Derek!", "THISISMYPASSWORD");
-    System.out.println(test);
-    System.out.println(decrypt(test, "THISISMYPASSWORD"));
+    String text = "Adrianna lovely";
+    String pass = "g  amert456 i";
+    String res = encrypt(text, pass);
+    System.out.println(res);
+    System.out.println(decrypt(res, pass));
   }
   
   
@@ -41,7 +43,6 @@
   }
   /*
   *Empty string catches;
-  *Spaces do not work, use underscore for temp
   */
   
   String decrypt(String text, String pass){
@@ -57,10 +58,13 @@
       
       textMat = cycleMatrixInc(textMat, 32, 126);
       textArr = matToIntArr(textMat);
-      if(text.length() - 1 % 2 == 0){
-        text = arrToString(textArr);
-      } else {
-        text = arrToString(textArr).substring(0, text.length() - 1);
+      if(text.length() > pass.length()){
+        if(text.length() % 2 == 0){
+          text = arrToString(textArr);
+        } else {
+          text = arrToString(textArr).substring(0, text.length() - 1);
+        }
+        //This does not work
       }
       return text;
   }
