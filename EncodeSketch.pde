@@ -3,16 +3,19 @@
   *  All code written by : Derek Cresswell
   */
   
+  import java.util.Random;
+  
   void setup(){
-    String text = "Tomorrow is n0t another day";
-    String pass = "Knox85";
+    String text = "The camp fire party is starting at 6";
+    String pass = "fire275";
     String res = encrypt(text, pass);
     System.out.println(res);
-    System.out.println(decrypt(res, pass));
+    System.out.println(decrypt(text, pass));
     
     //for(int i = 0; i < 256; i++){
     //  System.out.println(i + " : " + (char) i);
     //}
+    
   }
   
   
@@ -26,8 +29,31 @@
     }
   }
   
+  void stressCycle(int iter){
+      Random rand = new Random();
+      for(int i = 0; i < iter; i++){
+        int j = rand.nextInt(95);
+        int k = rand.nextInt(95);
+        k += 32;
+        j += 32;
+        int l = j - k;
+        int h = l;
+        while(h < 32 || h > 126){
+          if(h < 32){
+            h = 126 + 1 - (32 - l);
+          } else if(h > 126){
+            h = 32 - 1 + (l - 126);
+          }
+        }
+        if(h <= 32 || h >= 126){
+          System.out.print(j + "," + k + " : ");
+          System.out.print(l + " : ");
+          System.out.print(h +"\n");
+        }
+      }
+  }
   
-  
+  //Main Func
   String encrypt(String text, String pass){
       //size is set up for Add/Sub
       int[] textArr = stringToIntArr(text);
@@ -264,10 +290,12 @@
     
      for(int i = 0; i < mat.length; i++){
        for(int j = 0; j < mat[i].length; j++){
-         if(mat[i][j] < low){
-           mat[i][j] = high + 1 - (low - mat[i][j]);
-         } else if(mat[i][j] > high){
-           mat[i][j] = low - 1 + (mat[i][j] - high);
+         while(mat[i][j] < low || mat[i][j] > high){
+           if(mat[i][j] < low){
+             mat[i][j] = high + 1 - (low - mat[i][j]);
+           } else if(mat[i][j] > high){
+             mat[i][j] = low - 1 + (mat[i][j] - high);
+           }
          }
        }
      }
