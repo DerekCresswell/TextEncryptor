@@ -4,11 +4,15 @@
   */
   
   void setup(){
-    String text = "Tomorrow is another day";
-    String pass = "Knox5";
+    String text = "Tomorrow is n0t another day";
+    String pass = "Knox85";
     String res = encrypt(text, pass);
     System.out.println(res);
     System.out.println(decrypt(res, pass));
+    
+    //for(int i = 0; i < 256; i++){
+    //  System.out.println(i + " : " + (char) i);
+    //}
   }
   
   
@@ -31,8 +35,8 @@
       
       int[] size = findDimensionsAS(textArr.length, passArr.length);
       
-      int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
-      int[][] passMat = arrToMatrix(passArr, size[0], size[1]);
+      int[][] textMat = arrToMatrix(textArr, size[0], size[1], false);
+      int[][] passMat = arrToMatrix(passArr, size[0], size[1], true);
       textMat = subtractMatrices(textMat, passMat);
 
       textMat = cycleMatrixInc(textMat, 32, 126); 
@@ -52,8 +56,8 @@
      
       int size[] = findDimensionsAS(textArr.length, passArr.length);
       
-      int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
-      int[][] passMat = arrToMatrix(passArr, size[0], size[1]);
+      int[][] textMat = arrToMatrix(textArr, size[0], size[1], false);
+      int[][] passMat = arrToMatrix(passArr, size[0], size[1], true);
       textMat = addMatrices(textMat, passMat);
       
       textMat = cycleMatrixInc(textMat, 32, 126);
@@ -89,7 +93,7 @@
   *Shoud need to be doubles for inverse matrices
   */
   
-  int[][] arrToMatrix(int[] arr, int row, int col){
+  int[][] arrToMatrix(int[] arr, int row, int col, boolean repeatValues){
     //Converts int array to 2D array of row rows and col columns 
     //0's are substituded if the array is too short
     //If the array is too long the extra values are not used
@@ -104,10 +108,15 @@
          if(count < arr.length){
            toRet[i][j] = arr[count];
          } else {
+           if(repeatValues){
            toRet[i][j] = arr[repCount];
            repCount++;
            if(repCount == arr.length)
              repCount = 0;
+           } else {
+             toRet[i][j] = 0;
+           }
+           
          } 
          
          count++;
