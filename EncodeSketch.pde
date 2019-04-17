@@ -4,8 +4,8 @@
   */
   
   void setup(){
-    String text = "Adrianna lovely";
-    String pass = "g  amert456 i";
+    String text = "Tomorrow is another day";
+    String pass = "Knox5";
     String res = encrypt(text, pass);
     System.out.println(res);
     System.out.println(decrypt(res, pass));
@@ -49,7 +49,7 @@
       //Size is set up  for Add/Sub
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
-      
+     
       int size[] = findDimensionsAS(textArr.length, passArr.length);
       
       int[][] textMat = arrToMatrix(textArr, size[0], size[1]);
@@ -96,16 +96,19 @@
     
     int[][] toRet = new int[row][col];
     int count = 0;
+    int repCount = 0;
     
     for(int i = 0; i < row; i++){   
       for(int j = 0; j < col; j++){
         
          if(count < arr.length){
-           //ensure working ^
            toRet[i][j] = arr[count];
          } else {
-           toRet[i][j] = 0;
-         }
+           toRet[i][j] = arr[repCount];
+           repCount++;
+           if(repCount == arr.length)
+             repCount = 0;
+         } 
          
          count++;
       }  
