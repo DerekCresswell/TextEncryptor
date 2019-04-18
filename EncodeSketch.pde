@@ -1,53 +1,50 @@
+
   /*
   *  Text Encrypter / Decrytper
   *  All code written by : Derek Cresswell
   */
+
+  import controlP5.*;
   
-  import java.util.Random;
+  ControlP5 cp5;
+ 
+  String text = "";
+  String pass = "";
+  boolean funcChoice = true;
   
   void setup(){
-    String text = "The camp fire party is starting at 6!";
-    String pass = "fire275";
-    String res = encrypt(text, pass);
-    System.out.println(res);
-    System.out.println(decrypt(res, pass));
+    size(500, 300);
+    
+    //String text = "The camp fire party is starting at 6!";
+    //String pass = "fire275";
+    //String res = encrypt(text, pass);
+    //System.out.println(res);
+    //System.out.println(decrypt(res, pass));
+    
+    cp5 = new ControlP5(this);
+    cp5.addTextfield("text").setPosition(20, 40).setSize(200, 20);
+    cp5.addTextfield("pass").setPosition(20, 80).setSize(200, 20);
+    cp5.addTextfield("result").setPosition(20, 140).setSize(200, 20);
+    cp5.addBang("funcChoice").setPosition(240, 40);
+    cp5.addBang("send").setPosition(240, 80);
     
   }
   
+  void draw(){
+    background(0);
+  }
   
-  //Temp func
-  void printMat(int[][] mat){
-    for(int i = 0; i < mat.length; i++){
-      for(int j = 0; j < mat[i].length; j++){
-        System.out.print(mat[i][j] + ", ");
-      }
-      System.out.println();
+  
+  void send(){
+    if(funcChoice){
+      String str = (encrypt(cp5.get(Textfield.class, "text").getText(), cp5.get(Textfield.class, "pass").getText()));
+      cp5.get(Textfield.class, "result").setText(str);
+    } else {
+      String str = (decrypt(cp5.get(Textfield.class, "text").getText(), cp5.get(Textfield.class, "pass").getText()));
+      cp5.get(Textfield.class, "result").setText(str);
     }
   }
   
-  void stressCycle(int iter){
-      Random rand = new Random();
-      for(int i = 0; i < iter; i++){
-        int j = rand.nextInt(95);
-        int k = rand.nextInt(95);
-        k += 32;
-        j += 32;
-        int l = j - k;
-        int h = l;
-        while(h < 32 || h > 126){
-          if(h < 32){
-            h = 126 + 1 - (32 - l);
-          } else if(h > 126){
-            h = 32 - 1 + (l - 126);
-          }
-        }
-        if(h <= 32 || h >= 126){
-          System.out.print(j + "," + k + " : ");
-          System.out.print(l + " : ");
-          System.out.print(h +"\n");
-        }
-      }
-  }
   
   //Main Func
   String encrypt(String text, String pass){
