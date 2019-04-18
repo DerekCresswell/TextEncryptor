@@ -6,15 +6,11 @@
   import java.util.Random;
   
   void setup(){
-    String text = "The camp fire party is starting at 6";
+    String text = "The camp fire party is starting at 6!";
     String pass = "fire275";
     String res = encrypt(text, pass);
     System.out.println(res);
-    System.out.println(decrypt(text, pass));
-    
-    //for(int i = 0; i < 256; i++){
-    //  System.out.println(i + " : " + (char) i);
-    //}
+    System.out.println(decrypt(res, pass));
     
   }
   
@@ -94,7 +90,7 @@
         } else {
           text = arrToString(textArr).substring(0, text.length() - 1);
         }
-        //This does not work
+        //This does not work, needs new way about this.
       }
       return text;
   }
@@ -302,4 +298,3 @@
      return mat;
   }
   
- 
