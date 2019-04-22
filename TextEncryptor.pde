@@ -5,12 +5,13 @@
   */
 
   import controlP5.*;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
   
   ControlP5 cp5;
   
-  String text = "";
-  String pass = "";
-  boolean funcChoice = true;
+  boolean Function = true;
   
   void setup(){
     size(500, 300);
@@ -22,11 +23,13 @@
     //System.out.println(decrypt(res, pass)); 
       
     cp5 = new ControlP5(this);
-    cp5.addTextfield("text").setPosition(20, 40).setSize(200, 20);
-    cp5.addTextfield("pass").setPosition(20, 80).setSize(200, 20);
-    cp5.addTextfield("result").setPosition(20, 140).setSize(200, 20);
-    cp5.addBang("funcChoice").setPosition(240, 40);
-    cp5.addBang("send").setPosition(240, 80);
+    cp5.addTextfield("Message").setPosition(20, 40).setSize(200, 20);
+    cp5.addTextfield("Password").setPosition(20, 80).setSize(200, 20);
+    cp5.addTextfield("Result").setPosition(20, 140).setSize(200, 20);
+    cp5.addDropdownList("Function").setPosition(280, 40).addItem("Encrypt", Function).addItem("Decrypt", Function);
+    cp5.addBang("Send").setPosition(240, 80).setSize(20, 20);
+    cp5.addBang("Copy").setPosition(240, 140).setSize(20, 20);
+    cp5.addBang("Paste").setPosition(240, 40).setSize(20, 20);
       
   }
   
@@ -34,12 +37,47 @@
     background(0);
   }
   
-  void send(){
-    if(funcChoice){
-      String str = (encrypt(cp5.get(Textfield.class, "text").getText(), cp5.get(Textfield.class, "pass").getText()));
-      cp5.get(Textfield.class, "result").setText(str);
+  void Send(){
+    if(!Function){
+      String str = (encrypt(cp5.get(Textfield.class, "Message").getText(), cp5.get(Textfield.class, "Password").getText()));
+      cp5.get(Textfield.class, "Result").setText(str);
     } else {
-      String str = (decrypt(cp5.get(Textfield.class, "text").getText(), cp5.get(Textfield.class, "pass").getText()));
-      cp5.get(Textfield.class, "result").setText(str);
+      String str = (decrypt(cp5.get(Textfield.class, "Message").getText(), cp5.get(Textfield.class, "Password").getText()));
+      cp5.get(Textfield.class, "Result").setText(str);
     }
   }
+  
+  void Copy(){
+    Toolkit toolkit = Toolkit.getDefaultToolkit();
+    Clipboard clipboard = toolkit.getSystemClipboard();
+    StringSelection str = new StringSelection(cp5.get(Textfield.class, "Result").getText());
+    clipboard.setContents(str, null);
+  }
+  
+  void Paste(){
+    
+    
+    //This is not my code, just example \/\/\/
+    //String result = "";
+    //Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    ////odd: the Object param of getContents is not currently used
+    //Transferable contents = clipboard.getContents(null);
+    //boolean hasTransferableText =
+    //  (contents != null) &&
+    //  contents.isDataFlavorSupported(DataFlavor.stringFlavor)
+    //;
+    //if (hasTransferableText) {
+    //  try {
+    //    result = (String)contents.getTransferData(DataFlavor.stringFlavor);
+    //  }
+    //  catch (UnsupportedFlavorException | IOException ex){
+    //    System.out.println(ex);
+    //    ex.printStackTrace();
+    //  }
+    //}
+    //return result;
+  }
+  
+  
+  
+  
