@@ -3,4 +3,4 @@
     Create arr functions for adding / subtraction;
     Add license to project;
     Add Multilayer encryption;
-    
+    Add exceptions and edgecase catches for functions;
