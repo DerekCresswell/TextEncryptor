@@ -5,9 +5,8 @@
   */
 
   import controlP5.*;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
+  import java.awt.Toolkit;
+  import java.awt.datatransfer.*;
   
   ControlP5 cp5;
   
@@ -48,36 +47,24 @@ import java.awt.datatransfer.StringSelection;
   }
   
   void Copy(){
-    Toolkit toolkit = Toolkit.getDefaultToolkit();
-    Clipboard clipboard = toolkit.getSystemClipboard();
+    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     StringSelection str = new StringSelection(cp5.get(Textfield.class, "Result").getText());
     clipboard.setContents(str, null);
   }
   
   void Paste(){
+    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    Transferable contents = clipboard.getContents(null);
     
-    
-    //This is not my code, just example \/\/\/
-    //String result = "";
-    //Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-    ////odd: the Object param of getContents is not currently used
-    //Transferable contents = clipboard.getContents(null);
-    //boolean hasTransferableText =
-    //  (contents != null) &&
-    //  contents.isDataFlavorSupported(DataFlavor.stringFlavor)
-    //;
-    //if (hasTransferableText) {
-    //  try {
-    //    result = (String)contents.getTransferData(DataFlavor.stringFlavor);
-    //  }
-    //  catch (UnsupportedFlavorException | IOException ex){
-    //    System.out.println(ex);
-    //    ex.printStackTrace();
-    //  }
-    //}
-    //return result;
+    if(contents == null)
+      return;
+    try {
+      cp5.get(Textfield.class, "Message").setText((String) 
+        clipboard.getData(DataFlavor.stringFlavor));
+    } catch (Exception exc){
+      exc.printStackTrace();
+    } 
   }
-  
   
   
   
