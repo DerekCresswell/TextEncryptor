@@ -3,54 +3,17 @@
   *  All code written by : Derek Cresswell
   */
   
-  import java.util.Random;
-  
   void setup(){
     String text = "The camp fire party is starting at 6!";
     String pass = "fire275";
-    String res = encrypt(text, pass);
+    String res = encryptAS(text, pass);
     System.out.println(res);
-    System.out.println(decrypt(res, pass));
+    System.out.println(decryptAS(res, pass));
     
   }
-  
-  
-  //Temp func
-  void printMat(int[][] mat){
-    for(int i = 0; i < mat.length; i++){
-      for(int j = 0; j < mat[i].length; j++){
-        System.out.print(mat[i][j] + ", ");
-      }
-      System.out.println();
-    }
-  }
-  
-  void stressCycle(int iter){
-      Random rand = new Random();
-      for(int i = 0; i < iter; i++){
-        int j = rand.nextInt(95);
-        int k = rand.nextInt(95);
-        k += 32;
-        j += 32;
-        int l = j - k;
-        int h = l;
-        while(h < 32 || h > 126){
-          if(h < 32){
-            h = 126 + 1 - (32 - l);
-          } else if(h > 126){
-            h = 32 - 1 + (l - 126);
-          }
-        }
-        if(h <= 32 || h >= 126){
-          System.out.print(j + "," + k + " : ");
-          System.out.print(l + " : ");
-          System.out.print(h +"\n");
-        }
-      }
-  }
-  
+
   //Main Func
-  String encrypt(String text, String pass){
+  String encryptAS(String text, String pass){
       //size is set up for Add/Sub
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
@@ -71,7 +34,7 @@
   *Empty string catches;
   */
   
-  String decrypt(String text, String pass){
+  String decryptAS(String text, String pass){
       //Size is set up  for Add/Sub
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass);
@@ -84,22 +47,57 @@
       
       textMat = cycleMatrixInc(textMat, 32, 126);
       textArr = matToIntArr(textMat);
-      if(text.length() > pass.length()){
-        if(text.length() % 2 == 0){
-          text = arrToString(textArr);
-        } else {
-          text = arrToString(textArr).substring(0, text.length() - 1);
-        }
-        //This does not work, needs new way about this.
-      }
+      
       return text;
   }
   /*
   * Chop extra "_"
   */
-  //End Main Func
   
-  //Start Helper Func
+  String encryptMD(String text, String pass){
+    
+    return text;
+  }
+  
+  String decryptMD(String text, String pass){
+    
+    return text;
+  }
+  
+  //Func for both --------------
+  
+  int[] findDivisors(int n){
+    //toRet[0] is the lesser number
+    
+    int[] toRet = new int[2];
+    
+    for(int i = 1; i <= Math.sqrt(n); i++){
+      if(n % i == 0){
+        
+        if(n / i == i){
+          toRet[0] = i;
+          toRet[1] = i;
+        } else {
+          toRet[0] = i;
+          toRet[1] = n / i;
+        }
+        
+      }
+    }
+    
+    return toRet;
+  }
+  
+  String arrToString(int[] arr){
+    String toRet = "";
+    
+    for(int i = 0; i < arr.length; i++){
+      toRet = toRet + Character.toString((char) arr[i]);
+    }
+    
+    return toRet;
+  }
+  
   int[] stringToIntArr(String text){
     //Converts string to int array of ASCII values
     
@@ -114,6 +112,31 @@
   /*
   *Shoud need to be doubles for inverse matrices
   */
+  
+  //Func for AS ----------------
+  
+  int[] findDimensionsAS(int num1, int num2){
+    //Returns an array with the values for the matrices size
+    //Indices ; mat1[0][1], mat2[0][1]
+    
+    int[] toRet = new int[2];
+    
+    if(num1 % 2 != 0)
+      num1++;
+      
+    if(num2 % 2 != 0)
+      num2++;
+   
+   if(num1 > num2){
+     toRet = findDivisors(num1);
+   } else {
+     toRet = findDivisors(num2);
+   }
+    
+    return toRet;
+  }
+  
+  //Func for MD ----------------
   
   int[][] arrToMatrix(int[] arr, int row, int col, boolean repeatValues){
     //Converts int array to 2D array of row rows and col columns 
@@ -172,28 +195,7 @@
   * Should need to be doubles for inverse matrices
   */
   
-  int[] findDimensionsAS(int num1, int num2){
-    //Returns an array with the values for the matrices size
-    //Indices ; mat1[0][1], mat2[0][1]
-    
-    int[] toRet = new int[2];
-    
-    if(num1 % 2 != 0)
-      num1++;
-      
-    if(num2 % 2 != 0)
-      num2++;
-   
-   if(num1 > num2){
-     toRet = findDivisors(num1);
-   } else {
-     toRet = findDivisors(num2);
-   }
-    
-    return toRet;
-  }
-  
-    int[] findDimensionsMD(int num1, int num2){
+  int[] findDimensionsMD(int num1, int num2){
     //Returns an array with the values for the matrices size
     //Indices : mat1[0][1], mat2[1][2]
 
@@ -215,28 +217,6 @@
     return toRet;
   }
   
-  int[] findDivisors(int n){
-    //toRet[0] is the lesser number
-    
-    int[] toRet = new int[2];
-    
-    for(int i = 1; i <= Math.sqrt(n); i++){
-      if(n % i == 0){
-        
-        if(n / i == i){
-          toRet[0] = i;
-          toRet[1] = i;
-        } else {
-          toRet[0] = i;
-          toRet[1] = n / i;
-        }
-        
-      }
-    }
-    
-    return toRet;
-  }
-  
   int[] matToIntArr(int[][] mat){
     int[] toRet = new int[mat.length * mat[0].length];
     int count = 0;
@@ -246,16 +226,6 @@
         toRet[count] = mat[i][j];
         count++;
       }
-    }
-    
-    return toRet;
-  }
-  
-  String arrToString(int[] arr){
-    String toRet = "";
-    
-    for(int i = 0; i < arr.length; i++){
-      toRet = toRet + Character.toString((char) arr[i]);
     }
     
     return toRet;
