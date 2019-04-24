@@ -6,9 +6,13 @@
   void setup(){
     String text = "The camp fire party is starting at 6!";
     String pass = "fire275";
-    String res = encryptAS(text, pass);
-    System.out.println(res);
-    System.out.println(decryptAS(res, pass));
+    //String res = encryptAS(text, pass);
+    //System.out.println(res);
+    //System.out.println(decryptAS(res, pass));
+    int[] test = stringToIntArr(pass, text.length());
+    for(int i = 0; i < test.length; i++){
+      System.out.println(test[i]);
+    }
     
   }
 
@@ -16,16 +20,10 @@
   String encryptAS(String text, String pass){
       //size is set up for Add/Sub
       int[] textArr = stringToIntArr(text);
-      int[] passArr = stringToIntArr(pass);
+      int[] passArr = stringToIntArr(pass, text.length());
       
-      int[] size = findDimensionsAS(textArr.length, passArr.length);
-      
-      int[][] textMat = arrToMatrix(textArr, size[0], size[1], false);
-      int[][] passMat = arrToMatrix(passArr, size[0], size[1], true);
-      textMat = subtractMatrices(textMat, passMat);
-
-      textMat = cycleMatrixInc(textMat, 32, 126); 
-      textArr = matToIntArr(textMat);
+      textArr = subtractArrays(textArr, passArr);
+      textArr = cycleArrayInc(textArr, 32, 126); 
       text = arrToString(textArr);
       
       return text;
@@ -134,6 +132,35 @@
    }
     
     return toRet;
+  }
+  //Depreciated?
+  
+  int[] stringToIntArr(String text, int size){
+    //Converts string to int array of ASCII values
+    
+      int[] toRet = new int[size];
+      int repCount = 0;
+      
+      for(int i = 0; i < size; i++){
+        if(i < text.length()){
+          toRet[i] = (int) text.charAt(i);
+        } else {
+            toRet[i] = (int) text.charAt(repCount);
+            repCount++;
+            if(repCount == text.length())
+              repCount = 0;
+        }
+      }
+    
+      return toRet;
+  }
+  
+  int[] subtractArrays(int[] text, int[] pass){
+    for(int i = 0; i < text.length; i++){
+      text[i] -= pass[i];
+    }
+    
+    return text;
   }
   
   //Func for MD ----------------
