@@ -10,16 +10,11 @@
   
   ControlP5 cp5;
   
-  boolean Function = true;
+  int Function = 0;
+  //1 = encrypt, 2 = decrypt
   
   void setup(){
     size(500, 300);
-      
-    //String text = "The camp fire party is starting at 6!";
-    //String pass = "fire275";
-    //String res = encrypt(text, pass);
-    //System.out.println(res);
-    //System.out.println(decrypt(res, pass)); 
       
     cp5 = new ControlP5(this);
     cp5.addTextfield("Message").setPosition(20, 40).setSize(200, 20);
@@ -37,12 +32,17 @@
   }
   
   void Send(){
-    if(!Function){
-      String str = (encrypt(cp5.get(Textfield.class, "Message").getText(), cp5.get(Textfield.class, "Password").getText()));
-      cp5.get(Textfield.class, "Result").setText(str);
-    } else {
-      String str = (decrypt(cp5.get(Textfield.class, "Message").getText(), cp5.get(Textfield.class, "Password").getText()));
-      cp5.get(Textfield.class, "Result").setText(str);
+    String str = cp5.get(Textfield.class, "Message").getText();
+    String pass = cp5.get(Textfield.class, "Password").getText();
+    
+    if(!(str == null || str.equals("")) && !(pass == null || pass.equals("")) ){
+      if(Function == 0){
+        str = (encrypt(str, pass));
+        cp5.get(Textfield.class, "Result").setText(str);
+      } else if(Function == 1){
+        str = (decrypt(str, pass));
+        cp5.get(Textfield.class, "Result").setText(str);
+      }
     }
   }
   
@@ -58,6 +58,7 @@
     
     if(contents == null)
       return;
+      
     try {
       cp5.get(Textfield.class, "Message").setText((String) 
         clipboard.getData(DataFlavor.stringFlavor));
