@@ -4,15 +4,11 @@
   */
   
   void setup(){
-    String text = "The camp fire party is starting at 6!";
-    String pass = "fire275";
-    //String res = encryptAS(text, pass);
-    //System.out.println(res);
-    //System.out.println(decryptAS(res, pass));
-    int[] test = stringToIntArr(pass, text.length());
-    for(int i = 0; i < test.length; i++){
-      System.out.println(test[i]);
-    }
+    String text = "The camp fire party is starting at 6";
+    String pass = "fire456";
+    String res = encryptAS(text, pass);
+    System.out.println(res);
+    System.out.println(decryptAS(res, pass));
     
   }
 
@@ -35,27 +31,25 @@
   String decryptAS(String text, String pass){
       //Size is set up  for Add/Sub
       int[] textArr = stringToIntArr(text);
-      int[] passArr = stringToIntArr(pass);
+      int[] passArr = stringToIntArr(pass, text.length());
      
-      int size[] = findDimensionsAS(textArr.length, passArr.length);
-      
-      int[][] textMat = arrToMatrix(textArr, size[0], size[1], false);
-      int[][] passMat = arrToMatrix(passArr, size[0], size[1], true);
-      textMat = addMatrices(textMat, passMat);
-      
-      textMat = cycleMatrixInc(textMat, 32, 126);
-      textArr = matToIntArr(textMat);
+      textArr = addArrays(textArr, passArr);
+      textArr = cycleArrayInc(textArr, 32, 126); 
+      text = arrToString(textArr); 
       
       return text;
   }
   /*
-  * Chop extra "_"
+  *
   */
   
   String encryptMD(String text, String pass){
     
     return text;
   }
+  /*
+  *Chop extra "_"
+  */
   
   String decryptMD(String text, String pass){
     
@@ -63,28 +57,6 @@
   }
   
   //Func for both --------------
-  
-  int[] findDivisors(int n){
-    //toRet[0] is the lesser number
-    
-    int[] toRet = new int[2];
-    
-    for(int i = 1; i <= Math.sqrt(n); i++){
-      if(n % i == 0){
-        
-        if(n / i == i){
-          toRet[0] = i;
-          toRet[1] = i;
-        } else {
-          toRet[0] = i;
-          toRet[1] = n / i;
-        }
-        
-      }
-    }
-    
-    return toRet;
-  }
   
   String arrToString(int[] arr){
     String toRet = "";
@@ -113,28 +85,6 @@
   
   //Func for AS ----------------
   
-  int[] findDimensionsAS(int num1, int num2){
-    //Returns an array with the values for the matrices size
-    //Indices ; mat1[0][1], mat2[0][1]
-    
-    int[] toRet = new int[2];
-    
-    if(num1 % 2 != 0)
-      num1++;
-      
-    if(num2 % 2 != 0)
-      num2++;
-   
-   if(num1 > num2){
-     toRet = findDivisors(num1);
-   } else {
-     toRet = findDivisors(num2);
-   }
-    
-    return toRet;
-  }
-  //Depreciated?
-  
   int[] stringToIntArr(String text, int size){
     //Converts string to int array of ASCII values
     
@@ -161,6 +111,28 @@
     }
     
     return text;
+  }
+  
+  int[] addArrays(int[] text, int[] pass){
+    for(int i = 0; i < text.length; i++){
+      text[i] += pass[i];
+    }
+    
+    return text;
+  }
+  
+  int[] cycleArrayInc(int[] arr, int low, int high){
+    for(int i = 0; i < arr.length; i++){
+      while(arr[i] < low || arr[i] > high){
+        if(arr[i] < low){
+          arr[i] = high + 1 - (low - arr[i]);
+        } else if(arr[i] > high){
+          arr[i] = low - 1 + (arr[i] - high);
+        }
+      }
+    }
+    
+    return arr;
   }
   
   //Func for MD ----------------
@@ -241,6 +213,28 @@
     toRet[1] = result[0];
     toRet[2] = num2 / result[0];
 
+    return toRet;
+  }
+     
+  int[] findDivisors(int n){
+    //toRet[0] is the lesser number
+    
+    int[] toRet = new int[2];
+    
+    for(int i = 1; i <= Math.sqrt(n); i++){
+      if(n % i == 0){
+        
+        if(n / i == i){
+          toRet[0] = i;
+          toRet[1] = i;
+        } else {
+          toRet[0] = i;
+          toRet[1] = n / i;
+        }
+        
+      }
+    }
+    
     return toRet;
   }
   
