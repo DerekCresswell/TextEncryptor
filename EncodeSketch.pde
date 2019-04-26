@@ -1,20 +1,11 @@
+
   /*
   *  Text Encrypter / Decrytper
   *  All code written by : Derek Cresswell
   */
   
-  void setup(){
-    String text = "The camp fire party is starting at 6";
-    String pass = "fire456";
-    String res = encryptAS(text, pass);
-    System.out.println(res);
-    System.out.println(decryptAS(res, pass));
-    
-  }
-
   //Main Func
   String encryptAS(String text, String pass){
-      //size is set up for Add/Sub
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass, text.length());
       
@@ -29,7 +20,6 @@
   */
   
   String decryptAS(String text, String pass){
-      //Size is set up  for Add/Sub
       int[] textArr = stringToIntArr(text);
       int[] passArr = stringToIntArr(pass, text.length());
      
