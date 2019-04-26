@@ -20,7 +20,7 @@
     cp5.addTextfield("Message").setPosition(20, 40).setSize(200, 20);
     cp5.addTextfield("Password").setPosition(20, 80).setSize(200, 20);
     cp5.addTextfield("Result").setPosition(20, 140).setSize(200, 20);
-    cp5.addDropdownList("Function").setPosition(280, 40).addItem("Encrypt", Function).addItem("Decrypt", Function);
+    cp5.addDropdownList("Function").setPosition(280, 40).addItem("EncryptAS", Function).addItem("DecryptAS", Function);
     cp5.addBang("Send").setPosition(240, 80).setSize(20, 20);
     cp5.addBang("Copy").setPosition(240, 140).setSize(20, 20);
     cp5.addBang("Paste").setPosition(240, 40).setSize(20, 20);
@@ -37,10 +37,10 @@
     
     if(!(str == null || str.equals("")) && !(pass == null || pass.equals("")) ){
       if(Function == 0){
-        str = (encrypt(str, pass));
+        str = (encryptAS(str, pass));
         cp5.get(Textfield.class, "Result").setText(str);
       } else if(Function == 1){
-        str = (decrypt(str, pass));
+        str = (decryptAS(str, pass));
         cp5.get(Textfield.class, "Result").setText(str);
       }
     }
